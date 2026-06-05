@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Data (not needed in container)
+data/
+
+# Dev files
+*.log
+.env
+.venv/
+venv/
+
+# Git
+.git/
+.gitignore
+
+# Notebooks
+notebooks/
+
+# Tests
+tests/
+
+# Source scripts (not needed at runtime)
+src/
+train.py
