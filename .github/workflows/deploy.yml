@@ -33,18 +33,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build image
+      - name: Build and push image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/titanic-api:latest .
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/titanic-api:${{ github.sha }} .
-
-      - name: Push image
-        run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/titanic-api:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/titanic-api:${{ github.sha }}
 
   deploy:
     name: Deploy to Azure
@@ -69,3 +63,8 @@ jobs:
         run: |
           sleep 30
           curl -f https://titanic-ml-api-harsh-b8grcwe5hcdnh9ce.centralindia-01.azurewebsites.net/health && echo "HEALTHY" || echo "CHECK MANUALLY"
+
+      - name: Deployment summary
+        run: |
+          echo "DEPLOYMENT COMPLETE"
+          echo "URL: https://titanic-ml-api-harsh-b8grcwe5hcdnh9ce.centralindia-01.azurewebsites.net"
