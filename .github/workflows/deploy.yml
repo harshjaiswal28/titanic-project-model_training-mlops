@@ -43,4 +43,4 @@ jobs:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
           package: .
       - name: Done
-        run: echo "Deployed successfully"
+        run: echo "Deployed successfully to Azure"
